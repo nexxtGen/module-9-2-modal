@@ -39,30 +39,46 @@
         document.querySelector('#modal-three').classList.(addRem3)('show');
    };
    */
-   var showModal = function(event) {
+   /*
+  Komentarz mentora: te trzy warunki typu if ( target == modalLinks[0]) { 
+      są bardzo nieeleganckie. Bardzo dużo powtórzeń, do tego jak dojdzie nam więcej modali 
+      (i linków) to wtedy skrypt się nie zeskaluje odpowiednio.
+   */ 
+    
+    var targetedModalLinkAction = function(target) {
+        for ( var i = 0; i < modalLinks.length; i++) {
+            var actualLink = modalLinks[i];
+            if ( target == actualLink) {
+                document.querySelector(actualLink).classList.add('show');
+            }
+        }
+    }
+    
+    var showModal = function(event) {
         event.preventDefault();
         document.querySelector('#modal-overlay').classList.add('show');
         var target = event.target || event.srcElement;
-        console.log(target);
-        //console.log(target.getAttribute('href'));
+        //console.log(target);
+        alert(target);  
+        console.log('czy to modale? ', modals[0], target);      
         if ( target == modalLinks[0]) {
             //modalsShowStatus('add','remove','remove');
            document.querySelector('#modal-one').classList.add('show');
            document.querySelector('#modal-two').classList.remove('show');
            document.querySelector('#modal-three').classList.remove('show');
-            //event.preventDefault();
+            
          }
          else if ( target == modalLinks[1]) {
             document.querySelector('#modal-two').classList.add('show');
             document.querySelector('#modal-one').classList.remove('show');
             document.querySelector('#modal-three').classList.remove('show');
-           // event.preventDefault();
+           
          }
          else if ( target == modalLinks[2]) {
             document.querySelector('#modal-three').classList.add('show');
             document.querySelector('#modal-two').classList.remove('show');
             document.querySelector('#modal-one').classList.remove('show');
-           // event.preventDefault();
+           
          }
          
     };    
@@ -70,7 +86,7 @@
 	var modalLinks = document.querySelectorAll('.show-modal');
 	for(var i = 0; i < modalLinks.length; i++){        
         modalLinks[i].addEventListener('click', showModal);  
-        //alert(modalLinks[i]);      
+           
 	}
 	
 	// Close modal

@@ -3,53 +3,36 @@
 
     
     /*
-    var pageWrapper = document.getElementById('page-wrapper')
-    //alert(pageWrapper);
-	var showModal = function(event) {
-		event.preventDefault();
-        var links = pageWrapper.getElementsByTagName('a');
-        //alert(links[2]);
-        //for (var i = 0; i < links.length; i++) {   
-            if (links[0] == 'file:///E:/Kodilla/java-script/module-9-2-modal/index.html#modal-one') {
-                alert(links[0])
-                //document.querySelector('#modal-overlay').classList.add('show');
-            } 
-            else if (links[1] == 'file:///E:/Kodilla/java-script/module-9-2-modal/index.html#modal-two') {
-                alert(links[1])
-                //links[i].classList.add('show');
-            } 
-            else if (links[2] == 'file:///E:/Kodilla/java-script/module-9-2-modal/index.html#modal-three') {
-                alert(links[2])
-               // links[i].classList.add('show');
-            } 
-        //}   
-	};  
-
-    */
-    // Tu działą href!!!!
-    //var x = document.getElementsByClassName("show-modal").href;
-    
-
-   //alert(modalLinks[2]);
-   /*
-   var modalsShowStatus = function(addRem1,addRem2,addRem3) {
-        var tests = addRem1;
-        document.querySelector('#modal-one').classList.addRem1('show');
-        document.querySelector('#modal-two').classList.(addRem2)('show');
-        document.querySelector('#modal-three').classList.(addRem3)('show');
-   };
-   */
-   /*
   Komentarz mentora: te trzy warunki typu if ( target == modalLinks[0]) { 
       są bardzo nieeleganckie. Bardzo dużo powtórzeń, do tego jak dojdzie nam więcej modali 
       (i linków) to wtedy skrypt się nie zeskaluje odpowiednio.
    */ 
-    
+    var modalLinks = document.querySelectorAll('.show-modal');
+    var closeButtons = document.querySelectorAll('.modal .close');
+    var modals = document.querySelectorAll('.modal');
+    console.log(modals);   
+    /*
+    var selectRestArray = function(arg) {
+        var restArray = arg != sux;
+        return restArray;
+    }
+    */
     var targetedModalLinkAction = function(target) {
-        for ( var i = 0; i < modalLinks.length; i++) {
-            var actualLink = modalLinks[i];
-            if ( target == actualLink) {
-                document.querySelector(actualLink).classList.add('show');
+        for ( var i = 0; i < modalLinks.length; i++) {       
+            if ( target == modalLinks[i]) { 
+                for (var k = 0; k < modals.length; k++) {
+                    modals[k].classList.remove('show');
+                }               
+            modals[i].classList.add('show');   
+            //var val =  != modals[i];    
+            //var newArray = modals.slice(i);                
+            //var actual = modals[i];
+            // var filteredArray = modals.filter(function(i) {                    
+            //         return i != actual;
+            //    };                
+            //var sux = modals[i];
+            //var filteredArray = modals.filter(selectRestArray);
+            //filteredArray.classList.remove('show');              
             }
         }
     }
@@ -57,10 +40,12 @@
     var showModal = function(event) {
         event.preventDefault();
         document.querySelector('#modal-overlay').classList.add('show');
-        var target = event.target || event.srcElement;
-        //console.log(target);
-        alert(target);  
-        console.log('czy to modale? ', modals[0], target);      
+        var target = event.target || event.srcElement;        
+        console.log(target);
+        //alert(target);  
+        //console.log('czy to modale? ', modals[0], target); 
+        targetedModalLinkAction(target);
+        /*
         if ( target == modalLinks[0]) {
             //modalsShowStatus('add','remove','remove');
            document.querySelector('#modal-one').classList.add('show');
@@ -80,10 +65,10 @@
             document.querySelector('#modal-one').classList.remove('show');
            
          }
-         
+         */
     };    
 	
-	var modalLinks = document.querySelectorAll('.show-modal');
+	
 	for(var i = 0; i < modalLinks.length; i++){        
         modalLinks[i].addEventListener('click', showModal);  
            
@@ -96,7 +81,7 @@
 		document.querySelector('#modal-overlay').classList.remove('show');
 	};
 	
-	var closeButtons = document.querySelectorAll('.modal .close');
+	
 	
 	for(var i = 0; i < closeButtons.length; i++){
 		closeButtons[i].addEventListener('click', hideModal);
@@ -108,7 +93,6 @@
 	
 	// Overlay stop propagination 
 	
-	var modals = document.querySelectorAll('.modal');
 	
 	for(var i = 0; i < modals.length; i++){
 		modals[i].addEventListener('click', function(event){
